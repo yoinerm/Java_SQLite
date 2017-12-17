@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 public class Ventana_1 extends javax.swing.JFrame {
     String[] equipos_L1 = {"Alumbrado", "Pasteurizado", "Posimat", "Rinser", "Robopack", "Via de botellas", "Via de cajas",
@@ -20,11 +22,23 @@ public class Ventana_1 extends javax.swing.JFrame {
     public Ventana_1() {
         
         initComponents();
+        //---Asi cambiamos el color de las celdas, se crea y se llama una clase RenderCeldasTabla---
+        tabla.setDefaultRenderer(Object.class, new RenderCeldasTabla()); 
+        //------------------------------------------------------------------------------------------
         tabla.setModel(datos);
         datos.addColumn("Codigo");
         datos.addColumn("Descripcion");
         
-        setLocationRelativeTo(null);
+        //-- Cambiamos el tamaño de las columnas dandole mas tamaño a la descripcion----------------
+        //-- y menos tamaño al codigo --------------------------------------------------------------
+        tabla.setAutoResizeMode(tabla.AUTO_RESIZE_OFF);
+        TableColumn col = tabla.getColumnModel().getColumn(0);
+        col.setPreferredWidth(80);
+        col = tabla.getColumnModel().getColumn(1);
+        col.setPreferredWidth(480);
+        //------------------------------------------------------------------------------------------
+        
+        setLocationRelativeTo(null); // Para cargar la ventana en el centro de la pantalla
         equipoCB.addActionListener(new onSelect(0));
         jButton1.addActionListener(new onSelect(1));
     }
@@ -145,12 +159,12 @@ public class Ventana_1 extends javax.swing.JFrame {
         
 //-----------------------------------------------------------------------------        
     }
-    
+//-----------------------------------------------------------------------------    
     private void fillTable(Object[] cod){
         Object[] fila = cod;
         datos.addRow(fila);
     }
-    
+//-----------------------------------------------------------------------------    
     private void deleteTable(){
         int elementosNum = datos.getRowCount();
         datos.setNumRows(0);
@@ -160,7 +174,7 @@ public class Ventana_1 extends javax.swing.JFrame {
             }
         }*/
     }
-    
+//-----------------------------------------------------------------------------    
     private void optionSelected(int indxSel){
         switch (indxSel){
             case 0:
@@ -213,7 +227,7 @@ public class Ventana_1 extends javax.swing.JFrame {
                 break;
         }
     }
-    
+//-----------------------------------------------------------------------------    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -245,7 +259,7 @@ public class Ventana_1 extends javax.swing.JFrame {
             }
         });
     }
-
+//-----------------------------------------------------------------------------
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> equipoCB;
     private javax.swing.JButton jButton1;
