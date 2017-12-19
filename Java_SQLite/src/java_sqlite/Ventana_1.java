@@ -3,25 +3,26 @@ package java_sqlite;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 public class Ventana_1 extends javax.swing.JFrame {
-    String[] equipos_L1 = {"Alumbrado", "Pasteurizado", "Posimat", "Rinser", "Robopack", "Via de botellas", "Via de cajas",
+    /*String[] equipos_L1 = {"Alumbrado", "Pasteurizado", "Posimat", "Rinser", "Robopack", "Via de botellas", "Via de cajas",
                         "Transporte de tapas", "Bulk", "Codificadores", "Etiquetado", "Inspectores", "Llenadora", "Ocme",
                         "Paletizado", "Paster flash"};
-    
+    */
     Object[] s = {"", ""};
     String readTable = "Alumbrado";
+    Seleccion seleccion;
     
     DefaultTableModel datos = new DefaultTableModel();
     Conector conector;
 
     public Ventana_1() {
-        
+        seleccion = new Seleccion();
         initComponents();
+        equipoCB.setModel(new javax.swing.DefaultComboBoxModel<>(seleccion.getEquipos_L1()));
+        
         //---Asi cambiamos el color de las celdas, se crea y se llama una clase RenderCeldasTabla---
         tabla.setDefaultRenderer(Object.class, new RenderCeldasTabla()); 
         //------------------------------------------------------------------------------------------
@@ -62,7 +63,6 @@ public class Ventana_1 extends javax.swing.JFrame {
         jPanel1Layout.rowWeights = new double[] {0.0, 1.0};
         jPanel1.setLayout(jPanel1Layout);
 
-        equipoCB.setModel(new javax.swing.DefaultComboBoxModel<>(equipos_L1));
         equipoCB.setMinimumSize(new java.awt.Dimension(150, 25));
         equipoCB.setPreferredSize(new java.awt.Dimension(150, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -166,7 +166,7 @@ public class Ventana_1 extends javax.swing.JFrame {
     }
 //-----------------------------------------------------------------------------    
     private void deleteTable(){
-        int elementosNum = datos.getRowCount();
+        //int elementosNum = datos.getRowCount();
         datos.setNumRows(0);
         /*if (elementosNum > 0) {
             for (int i = 0; i < elementosNum; i++) {
